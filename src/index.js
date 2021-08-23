@@ -1,12 +1,4 @@
-const express =  require("express");
-
-const app = express();
-
-app.get("/",(req,res) => {
-
-    res.send("Helo world!!! EXPRESS");
-
-});
+const app = require("./app");
 
 app.listen(3333,() => {
 
