@@ -1,8 +1,10 @@
-const express =  require("express");
+const express = require("express");
 require("./database");
-const routes = require("./routes")
+const routes = require("./routes");
 
 const app = express();
+
+app.use(express.json());
 
 app.use(routes);
 
