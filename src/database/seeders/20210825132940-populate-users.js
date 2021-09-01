@@ -9,9 +9,10 @@ module.exports = {
       created_at: new Date(),
       updated_at: new Date(),
     }]);
+
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('users', null)
+    await queryInterface.bulkDelete('users', null);
   }
 };

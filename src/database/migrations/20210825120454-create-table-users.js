@@ -18,7 +18,7 @@ module.exports = {
       },
       password: {
         type: Sequelize.STRING,
-        allowNull: true
+        allowNull: false
       },
       created_at: {
         type: Sequelize.DATE,
@@ -28,13 +28,10 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false
       },
-    });
-
-
-
+    })
   },
 
   down: async (queryInterface, Sequelize) => {
-    queryInterface.dropTable("users");
+    queryInterface.dropTable("posts");
   }
 };

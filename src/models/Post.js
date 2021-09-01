@@ -3,7 +3,7 @@ const { Model, DataTypes } = require("sequelize");
 
 class Post extends Model {
 
-    static init(connetion) {
+    static init(connection){
         super.init(
             {
                 title: DataTypes.STRING,
@@ -12,14 +12,14 @@ class Post extends Model {
                 gist: DataTypes.STRING,
             },
             {
-                sequelize: connetion,
+                sequelize: connection,
             }
-        )
+        );
     }
 
-    static associate(models) {
+    static associate(models){
         this.belongsTo(models.User);
     }
-}
 
+}
 module.exports = Post;

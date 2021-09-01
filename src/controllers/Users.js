@@ -1,36 +1,44 @@
-const User = require("../Models/User");
-const bcrypt = require("becryptjs");
+const User = require("../models/User");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 module.exports = {
     async store(req, res) {
-        const{name,email,password} = req.body;
+        const { name, email, password } = req.body;
 
-        //verficar se o usuario ja existe
+        //verificar se o usuário já existe
         let user = await User.findOne({
             where: {
                 email: email
             }
         })
 
-        if(user){
-            return res.status(400).send({error: "este e-mail ja esta sendo utilizado"})
+        if (user) {
+            return res.status(400)
+                .send({ error: "Este e-mail já está sendo utilizado" })
         }
 
-        //gerar o hash da senha 
+        //gerar o hash da senha
         const passwordHashed = bcrypt.hashSync(password);
 
-        //inserir o usuario no banco
-        USer.create({
+        //inserir o usuário no banco
+        user = await User.create({
             name: name,
             email: email,
             password: passwordHashed
-        })
+        });
 
-        //gerar um token 
-        
-        //retornar um usuario
+        //gerar um token
+        const token = jwt.sign({
+            userId: user.id
+        }, auth.secret,{
+            expiresIn: '1h'
+        });
+
+        //retornar o usuário
         res.send({
             user: {
+                id: user.id,
                 name: user.name,
                 email: user.email
             }
