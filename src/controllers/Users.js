@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken")
+const auth = require("../config/auth");
 
 module.exports = {
     async store(req, res) {
@@ -29,11 +30,12 @@ module.exports = {
         });
 
         //gerar um token
-        const token = jwt.sign({
-            userId: user.id
-        }, auth.secret,{
-            expiresIn: '1h'
-        });
+        const token = jwt.sign(
+            { userId: user.id },
+            auth.secret,
+            {
+                expiresIn: "1h"
+            });
 
         //retornar o usuário
         res.send({
@@ -41,7 +43,7 @@ module.exports = {
                 id: user.id,
                 name: user.name,
                 email: user.email
-            }
+            }, token
         });
     }
 }
